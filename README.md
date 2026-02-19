@@ -3,7 +3,12 @@
 A curated collection of my C programming projects – from “Hello, World” to full terminal games and data-structure implementations – organized as if this were a production codebase, not just a homework dump.
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical" alt="C-Projects card" />
+  <a href="https://github.com/GrizX4051k/C-Projects">
+    <img
+      src="https://github-readme-stats.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical"
+      alt="C-Projects repo card"
+    />
+  </a>
 </p>
 
 ---
