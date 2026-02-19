@@ -4,12 +4,11 @@ A curated collection of my C programming projects – from “Hello, World” to
 
 <p align="center">
   <a href="https://github.com/GrizX4051k/C-Projects">
-    <img
-      src="https://github-readme-stats.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical"
-      alt="C-Projects repo card"
-    />
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical"
+         alt="C-Projects repo card" />
   </a>
 </p>
+
 
 ---
 
