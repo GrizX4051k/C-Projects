@@ -8,6 +8,32 @@ A curated collection of my C programming projects – from “Hello, World” to
     alt="GitHub stats for GrizX4051k"
   />
 </p>
+<p align="center">
+  <img
+    src="https://github-readme-stats-five-delta-54.vercel.app/api?username=GrizX4051k&show_icons=true&theme=radical&include_all_commits=true&count_private=true&hide_rank=false&number_format=long"
+    alt="GitHub stats for GrizX4051k"
+  />
+</p>
+<p align="center">
+  <img
+    src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radical"
+    alt="Top languages"
+  />
+</p>
+<p align="center">
+  <img
+    src="https://your-streak-instance.vercel.app?user=GrizX4051k&theme=radical"
+    alt="GitHub contribution streak"
+  />
+</p>
+<p align="center">
+  <a href="https://github.com/GrizX4051k/C-Projects">
+    <img
+      src="https://github-readme-stats-five-delta-54.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical&show_owner=true"
+      alt="C-Projects repo card"
+    />
+  </a>
+</p>
 
 
 
