@@ -10,7 +10,7 @@ A curated collection of my C programming projects – from “Hello, World” to
 </p>
 <p align="center">
   <img
-    src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radicall&hide=html"
+    src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radicall"
     alt="Top languages"
   />
 </p>
