@@ -1,0 +1,21 @@
+﻿# Perfect Number Checker
+
+## Why this exists
+
+This program exists to check whether a number is a perfect number using its divisors.
+
+## What this project shows
+
+It demonstrates loops, divisor logic, and working with classic number theory problems in C.
+
+## How to run (local)
+
+Open this folder in your terminal and compile with GCC or your C compiler.
+
+Single program example:
+  gcc main.c -o app -mconsole
+  ./app   (or .\app.exe on Windows)
+
+For folders with multiple small programs:
+  gcc file_name.c -o file_name.exe -mconsole
+  .\file_name.exe
