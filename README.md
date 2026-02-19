@@ -4,20 +4,20 @@ A curated collection of my C programming projects – from “Hello, World” to
 
 <p align="center">
   <img
-    src="https://github-readme-stats-five-delta-54.vercel.app/api?username=GrizX4051k&show_icons=true&theme=radical&include_all_commits=true&count_private=true&hide_rank=false&number_format=long"
+    src="https://github-readme-stats-five-delta-54.vercel.app/api?username=GrizX4051k&show_icons=true&theme=radical&include_all_commits=true&count_private=true&hide_rank=false&number_format=long&cache_seconds=60"
     alt="GitHub stats for GrizX4051k"
   />
 </p>
 <p align="center">
   <img
-    src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radical&hide=html,css,javascript,typescript"
+    src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radical&hide=html,css,javascript,typescript&cache_seconds=60"
     alt="Top languages"
   />
 </p>
 <p align="center">
   <a href="https://github.com/GrizX4051k/C-Projects">
     <img
-      src="https://github-readme-stats-five-delta-54.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical&show_owner=true"
+      src="https://github-readme-stats-five-delta-54.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical&show_owner=true&cache_seconds=60"
       alt="C-Projects repo card"
     />
   </a>
