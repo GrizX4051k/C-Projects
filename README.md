@@ -62,7 +62,7 @@ You can build and run everything with a standard GCC toolchain (MinGW on Windows
 
 ### 1. Clone the repo
 
-```bash
+bash
 git clone https://github.com/GrizX4051k/C-Projects.git
 cd C-Projects
 
@@ -95,7 +95,7 @@ gcc lab5-2.c -o lab5-2 -mconsole
 ./lab5-2
 Every folder’s internal README explains what to compile if there’s more than one option.
 
-Engineering practices in this repo
+# Engineering practices in this repo
 This is not just a set of assignments; I use it to practice real engineering habits:
 
 Separation of concerns
