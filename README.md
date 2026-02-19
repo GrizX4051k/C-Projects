@@ -2,7 +2,13 @@
 
 A curated collection of my C programming projects – from “Hello, World” to full terminal games and data-structure implementations – organized as if this were a production codebase, not just a homework dump.
 
-[![C-Projects](https://github-readme-stats.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical)](https://github.com/GrizX4051k/C-Projects)
+<p align="center">
+  <img
+    src="https://github-readme-stats-five-delta-54.vercel.app/api?username=GrizX4051k&show_icons=true&theme=radical"
+    alt="GitHub stats for GrizX4051k"
+  />
+</p>
+
 
 
 ---
