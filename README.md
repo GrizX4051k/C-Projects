@@ -97,47 +97,62 @@ Every folder’s internal README explains what to compile if there’s more than
 ```
 
 ## Engineering practices in this repo
-This is not just a set of assignments; I use it to practice real engineering habits:
 
-Separation of concerns
-Many projects are split into *_lib.c + *_lib.h and a separate main file. This mirrors how production C code is modularized into libraries and entrypoints.
+This is not just a set of assignments; I use it to practice real engineering habits and write C like it’s going into production.
 
-Readable APIs
-Headers describe intent, not just types: function names and signatures are chosen so another engineer can guess what they do without reading the implementation.
+### Separation of concerns
 
-Incremental complexity
-Projects are ordered so you can see progression: variables → control flow → arrays → strings → pointers → recursion → small “systems” (games and tools).
+Many projects are split into `*_lib.c` + `*_lib.h` and a separate `main` file.  
+This mirrors how real-world C code is modularized into libraries and small, focused entrypoints.
 
-Reproducible builds
-All examples use plain gcc CLI rather than IDE‑only flows, making it easy to compile on Linux, macOS, or Windows with MinGW.
+### Readable, intentional APIs
 
-Tech stack
-Even though this is “just C,” there is a consistent environment behind it:
+Headers describe intent, not just types: function names and signatures are chosen so another engineer can guess what they do without reading the implementation.  
+Where it makes sense, related functions are grouped to feel like a small, coherent “module” instead of random helpers.
 
-Language: C (C99-ish style)
+### Incremental complexity
 
-Toolchain: GCC / MinGW
+Projects are ordered so you can see progression:
 
-OS targets: Linux (WSL/Ubuntu), Windows
+> variables → control flow → arrays → strings → pointers → recursion → small “systems” (games and tools)
 
-Paradigms practiced: procedural design, modular APIs, basic data structures, algorithmic thinking
+This makes it easy to review how my thinking evolved from simple exercises to larger, stateful programs.
+
+### Reproducible builds
+
+All examples use the plain `gcc` CLI rather than IDE‑only workflows.  
+That makes it straightforward to compile on Linux, macOS, or Windows with MinGW, and mirrors how real build systems (Make, CMake, CI) invoke the compiler.
+
+---
+
+## Tech stack
+
+Even though this is “just C”, there is a consistent environment behind it:
+
+- **Language:** C (C99-ish style)  
+- **Toolchain:** GCC / MinGW  
+- **OS targets:** Linux (WSL/Ubuntu), Windows  
+- **Paradigms practiced:** procedural design, modular APIs, basic data structures, algorithmic thinking  
+
+---
+
+## Roadmap
 
 Over time I plan to add:
 
-Simple Makefiles for some of the larger games.
+- **Makefiles** for some of the larger games, to standardize builds and make them one‑command runnable.  
+- A lightweight **test harness** for key helper libraries (arrays, merge, search) to practice test‑driven thinking.  
+- A few **performance experiments**, comparing different implementations of the same algorithm and measuring their behavior.
 
-A lightweight test harness for key helper libraries (arrays, merge, search).
+---
 
-A few performance experiments (e.g., different ways to implement the same algorithm and compare).
+## About me
 
-About me
-I’m Manish Kumar (@GrizX4051k), an aspiring software engineer who likes to treat even “intro” projects like they belong in a real codebase.
+I’m **Manish Kumar** (`@GrizX4051k`), an aspiring software engineer who likes to treat even “intro” projects like they belong in a real codebase.
 
 If you’re browsing this as a recruiter or engineer:
 
-You’ll see how I handle C fundamentals, not just copy‑paste IDE projects.
-
-You can open any folder and quickly understand what it is, why it exists, and how to run it.
+- You’ll see how I handle C fundamentals, not just copy‑paste IDE templates.  
+- You can open any folder and quickly understand what it is, why it exists, and how to run it.
 
 Feel free to open issues with suggestions, refactors, or extra challenges – I’m actively growing this repo as I level up in systems programming.
----
