@@ -161,6 +161,7 @@
         </div>
 
         <form
+          id="feedbackForm"
           class="contact-form"
           action="https://formspree.io/f/xojnnlky"
           method="POST"
@@ -201,5 +202,65 @@
     </main>
 
     <script src="script.js"></script>
+    <script>
+  (function () {
+    const FORM_ID = "feedbackForm";
+    const STORAGE_KEY = "cProjectsFeedbackTimestamps";
+    const LIMIT = 2;          // max submissions
+    const WINDOW_HOURS = 48;  // per 48 hours
+
+    function loadTimestamps() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        return JSON.parse(raw);
+      } catch {
+        return [];
+      }
+    }
+
+    function saveTimestamps(list) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function isAllowed() {
+      const now = Date.now();
+      const windowMs = WINDOW_HOURS * 60 * 60 * 1000;
+
+      // keep only last 48h timestamps
+      let stamps = loadTimestamps().filter(t => now - t < windowMs);
+
+      if (stamps.length >= LIMIT) {
+        const remainingMs = windowMs - (now - stamps[0]);
+        const remainingHours = Math.ceil(remainingMs / (60 * 60 * 1000));
+        alert(
+          `Thanks for the feedback! You can send up to ${LIMIT} messages every ${WINDOW_HOURS} hours.\n\n` +
+          `Please try again in about ${remainingHours} hour(s).`
+        );
+        return { allowed: false, stamps };
+      }
+
+      return { allowed: true, stamps };
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById(FORM_ID);
+      if (!form) return;
+
+      form.addEventListener("submit", (e) => {
+        const check = isAllowed();
+        if (!check.allowed) {
+          e.preventDefault();
+          return;
+        }
+
+        // allowed: record this submission time
+        check.stamps.push(Date.now());
+        saveTimestamps(check.stamps);
+      });
+    });
+  })();
+</script>
+
   </body>
 </html>
