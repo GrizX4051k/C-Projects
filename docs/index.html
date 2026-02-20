@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>C Projects – GrizX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div>
+        <div class="logo">
+          <div class="logo-badge">C</div>
+          <div>
+            <div class="logo-text-main">C Projects</div>
+            <div class="logo-text-sub">By Manish (@GrizX4051k)</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="nav-section-title">Navigate</div>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link active">
+              <span class="nav-link-icon">🏠</span>
+              <span>Overview</span>
+            </a>
+            <a
+              href="https://grizx4051k.github.io/Web-Development/"
+              class="nav-link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span class="nav-link-icon">💻</span>
+              <span>Web Projects</span>
+            </a>
+            <a
+              href="https://grizx4051k.github.io/linux-lab-site/"
+              class="nav-link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span class="nav-link-icon">🐧</span>
+              <span>Linux Lab</span>
+            </a>
+            <a href="#contact" class="nav-link">
+              <span class="nav-link-icon">✉️</span>
+              <span>Contact & Feedback</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div>Built with C, GCC &amp; GitHub Pages.</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="top-bar">
+        <div>
+          <div class="top-title">C Projects Portfolio</div>
+          <div class="top-subtitle">
+            From basic syntax to full terminal games, data structures, and
+            utility libraries.
+          </div>
+        </div>
+
+        <div class="top-right">
+          <span class="tag">Live on GitHub Pages</span>
+          <span class="tag">C · CLI · DS</span>
+        </div>
+      </header>
+
+      <section class="section-card" style="padding-top: 14px">
+        <div class="section-header">
+          <div>
+            <div class="section-title">GitHub activity snapshot</div>
+            <div class="section-subtitle">
+              Language breakdown and repository card, kept in sync with GitHub.
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-images">
+          <img
+            src="https://github-readme-stats-five-delta-54.vercel.app/api/top-langs/?username=GrizX4051k&layout=compact&langs_count=10&theme=radical&hide=html,css,javascript,typescript&cache_seconds=60"
+            alt="Top languages for @GrizX4051k"
+            class="stats-img"
+          />
+          <a
+            href="https://github.com/GrizX4051k/C-Projects"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://github-readme-stats-five-delta-54.vercel.app/api/pin/?username=GrizX4051k&repo=C-Projects&theme=radical&show_owner=true&cache_seconds=60"
+              alt="C-Projects repo card"
+              class="stats-img"
+            />
+          </a>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Projects</div>
+            <div class="section-subtitle">
+              Browse each folder like a mini repository.
+            </div>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Filled by script.js from a JS array of project metadata -->
+        </div>
+      </section>
+
+      <section class="section-card" id="contact">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Contact & Feedback</div>
+            <div class="section-subtitle">
+              Found a bug, have an idea, or want to say hi? Drop a quick note
+              here.
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            display: grid;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 8px;
+          "
+        >
+          <div>
+            <strong style="font-weight: 600; color: var(--text)"
+              >Quick links</strong
+            ><br />
+            <a
+              href="mailto:money4051k@gmail.com"
+              style="color: var(--accent); text-decoration: none"
+              >Email Manish</a
+            >
+            ·
+            <a
+              href="https://github.com/GrizX4051k/C-Projects/issues"
+              target="_blank"
+              rel="noreferrer"
+              style="color: var(--accent); text-decoration: none"
+              >GitHub Issues</a
+            >
+          </div>
+          <div>
+            Prefer a short form? Use this feedback box (powered by Formspree).
+          </div>
+        </div>
+
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/xojnnlky"
+          method="POST"
+        >
+          <div class="input-group">
+            <label class="input-label" for="name">Name</label>
+            <input
+              class="input-control"
+              type="text"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="email"
+              >Optional email (for reply)</label
+            >
+            <input
+              class="input-control"
+              type="email"
+              id="email"
+              name="_replyto"
+            />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="message">Your message</label>
+            <textarea
+              class="textarea-control"
+              id="message"
+              name="message"
+              required
+            ></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send feedback</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

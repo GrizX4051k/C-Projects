@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project – C Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <div class="logo">
+        <div class="logo-badge">C</div>
+        <div>
+          <div class="logo-text-main">C Projects</div>
+          <div class="logo-text-sub">@GrizX4051k</div>
+        </div>
+      </div>
+      <div>
+        <div class="nav-section-title">Navigate</div>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">
+            <span class="nav-link-icon">🏠</span>
+            <span>Overview</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div>Viewing folder contents via GitHub API.</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top-bar">
+      <div>
+        <div class="top-title" id="projectTitle">Project</div>
+        <div class="top-subtitle" id="projectSubtitle"></div>
+      </div>
+      <div class="top-right">
+        <a id="githubLink" class="tag" target="_blank" rel="noreferrer">View on GitHub</a>
+      </div>
+    </header>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Files in folder</div>
+          <div class="section-subtitle">Click any file to view and run it.</div>
+        </div>
+      </div>
+
+      <div id="filesList" style="font-size:13px;color:var(--muted);"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    const repoOwner = "GrizX4051k";
+    const repoName = "C-Projects";
+    const branch = "main";
+
+    function getQueryParam(key) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(key);
+    }
+
+    function findProjectMeta(folder) {
+      return (window.projects || []).find(p => p.folder === folder);
+    }
+
+    async function loadFolder() {
+      const folder = getQueryParam("folder");
+      if (!folder) return;
+
+      const meta = findProjectMeta(folder);
+      const titleEl = document.getElementById("projectTitle");
+      const subEl = document.getElementById("projectSubtitle");
+      const ghLink = document.getElementById("githubLink");
+
+      if (meta) {
+        titleEl.textContent = meta.name;
+        subEl.textContent = meta.focus;
+      } else {
+        titleEl.textContent = folder;
+        subEl.textContent = "Folder in C-Projects repository.";
+      }
+
+      ghLink.href = `https://github.com/${repoOwner}/${repoName}/tree/${branch}/${folder}`;
+
+      const filesListEl = document.getElementById("filesList");
+      filesListEl.textContent = "Loading files...";
+
+      try {
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}?ref=${branch}`;
+        const res = await fetch(apiUrl);
+        if (!res.ok) {
+          throw new Error("GitHub API error");
+        }
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          filesListEl.textContent = "No files found in this folder.";
+          return;
+        }
+
+        const list = document.createElement("div");
+        data.forEach(item => {
+          const row = document.createElement("div");
+          row.style.padding = "6px 0";
+          row.style.display = "flex";
+          row.style.justifyContent = "space-between";
+          row.style.alignItems = "center";
+
+          const name = document.createElement("a");
+          name.textContent = item.name;
+          name.href = `file.html?folder=${encodeURIComponent(folder)}&path=${encodeURIComponent(item.path)}`;
+          name.style.color = "#e5e7eb";
+          name.style.textDecoration = "none";
+
+          const type = document.createElement("span");
+          type.style.fontSize = "11px";
+          type.style.color = "var(--muted)";
+          type.textContent = item.type === "dir" ? "folder" : "file";
+
+          row.appendChild(name);
+          row.appendChild(type);
+          list.appendChild(row);
+        });
+
+        filesListEl.innerHTML = "";
+        filesListEl.appendChild(list);
+      } catch (e) {
+        filesListEl.textContent = "Failed to load files.";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadFolder);
+  </script>
+</body>
+</html>
