@@ -7,33 +7,39 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <aside class="sidebar">
-      <div>
-        <div class="logo">
-          <div class="logo-badge">C</div>
-          <div>
-            <div class="logo-text-main">C Projects</div>
-            <div class="logo-text-sub">@GrizX4051k</div>
-          </div>
-        </div>
+    <header class="top-nav">
+  <div class="top-nav-inner">
+    <div class="top-nav-left">
+      <button class="hamburger" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="top-nav-brand">
+        <span class="logo-badge">C</span>
         <div>
-          <div class="nav-section-title">Navigate</div>
-          <div class="nav-links">
-            <a href="index.html" class="nav-link">
-              <span class="nav-link-icon">🏠</span>
-              <span>Overview</span>
-            </a>
-            <a href="javascript:history.back()" class="nav-link">
-              <span class="nav-link-icon">⬅️</span>
-              <span>Back to project</span>
-            </a>
-          </div>
+          <div class="logo-text-main">C Projects</div>
+          <div class="logo-text-sub">@GrizX4051k</div>
         </div>
       </div>
-      <div class="sidebar-footer">
-        <div>View & run C files side‑by‑side.</div>
-      </div>
-    </aside>
+    </div>
+    <div class="top-nav-right">
+      <a href="index.html" class="tag">Home</a>
+    </div>
+  </div>
+
+  <div class="offcanvas" id="offcanvasNav" aria-hidden="true">
+    <div class="offcanvas-header">
+      <div class="offcanvas-title">Navigate</div>
+      <button class="btn-close" id="navClose" aria-label="Close navigation">×</button>
+    </div>
+    <div class="offcanvas-body">
+      <a href="index.html" class="nav-link">Home / Overview</a>
+      <a href="https://grizx4051k.github.io/Web-Development/" class="nav-link" target="_blank" rel="noreferrer">Web Projects</a>
+      <a href="https://grizx4051k.github.io/linux-lab-site/" class="nav-link" target="_blank" rel="noreferrer">Linux Lab</a>
+      <a href="#contact" class="nav-link">Contact & Feedback</a>
+    </div>
+  </div>
+</header>
+
 
     <main class="main">
       <header class="top-bar">
@@ -194,6 +200,29 @@
       );
     });
   }
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("navToggle");
+    const close = document.getElementById("navClose");
+    const panel = document.getElementById("offcanvasNav");
+
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener("click", () => {
+      panel.classList.add("open");
+    });
+
+    if (close) {
+      close.addEventListener("click", () => {
+        panel.classList.remove("open");
+      });
+    }
+
+    panel.addEventListener("click", (e) => {
+      if (e.target === panel) {
+        panel.classList.remove("open");
+      }
+    });
+  });
 
   document.addEventListener("DOMContentLoaded", loadFile);
 </script>

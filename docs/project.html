@@ -7,135 +7,303 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <div>
-      <div class="logo">
-        <div class="logo-badge">C</div>
+  <header class="top-nav">
+  <div class="top-nav-inner">
+    <div class="top-nav-left">
+      <button class="hamburger" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="top-nav-brand">
+        <span class="logo-badge">C</span>
         <div>
           <div class="logo-text-main">C Projects</div>
           <div class="logo-text-sub">@GrizX4051k</div>
         </div>
       </div>
-      <div>
-        <div class="nav-section-title">Navigate</div>
-        <div class="nav-links">
-          <a href="index.html" class="nav-link">
-            <span class="nav-link-icon">🏠</span>
-            <span>Overview</span>
-          </a>
-        </div>
-      </div>
     </div>
-    <div class="sidebar-footer">
-      <div>Viewing folder contents via GitHub API.</div>
+    <div class="top-nav-right">
+      <a href="index.html" class="tag">Overview</a>
     </div>
-  </aside>
+  </div>
+
+  <div class="offcanvas" id="offcanvasNav" aria-hidden="true">
+    <div class="offcanvas-header">
+      <div class="offcanvas-title">Navigate</div>
+      <button class="btn-close" id="navClose" aria-label="Close navigation">×</button>
+    </div>
+    <div class="offcanvas-body">
+      <a href="index.html" class="nav-link">Home / Overview</a>
+      <a href="https://grizx4051k.github.io/Web-Development/" class="nav-link" target="_blank" rel="noreferrer">Web Projects</a>
+      <a href="https://grizx4051k.github.io/linux-lab-site/" class="nav-link" target="_blank" rel="noreferrer">Linux Lab</a>
+      <a href="#contact" class="nav-link">Contact & Feedback</a>
+    </div>
+  </div>
+</header>
+
 
   <main class="main">
-    <header class="top-bar">
-      <div>
-        <div class="top-title" id="projectTitle">Project</div>
-        <div class="top-subtitle" id="projectSubtitle"></div>
-      </div>
-      <div class="top-right">
-        <a id="githubLink" class="tag" target="_blank" rel="noreferrer">View on GitHub</a>
-      </div>
-    </header>
+  <header class="top-bar">
+    <div>
+      <div class="top-title" id="projectTitle">Project</div>
+      <div class="top-subtitle" id="projectSubtitle"></div>
+    </div>
+    <div class="top-right">
+      <a id="githubLink" class="tag" target="_blank" rel="noreferrer">View on GitHub</a>
+    </div>
+  </header>
 
-    <section class="section-card">
+  <div class="split-layout">
+    <!-- Left: file list (vertical tabs) -->
+    <section class="section-card" style="max-height:calc(100vh - 140px);overflow:auto;">
       <div class="section-header">
         <div>
           <div class="section-title">Files in folder</div>
-          <div class="section-subtitle">Click any file to view and run it.</div>
+          <div class="section-subtitle">Click any file to load it on the right.</div>
+        </div>
+      </div>
+      <div id="filesList" style="font-size:13px;color:var(--muted);"></div>
+    </section>
+
+    <!-- Right: code viewer + run panel (same look as file.html) -->
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <div class="section-title" id="fileViewTitle">Source code</div>
+          <div class="section-subtitle" id="fileViewMeta"></div>
+        </div>
+        <div class="run-controls">
+          <button class="btn" id="resetBtn">Reset</button>
+          <button class="btn" id="copyBtn">Copy</button>
+          <button class="btn btn-primary" id="sendToIframe">Send to editor</button>
         </div>
       </div>
 
-      <div id="filesList" style="font-size:13px;color:var(--muted);"></div>
+      <div class="split-layout">
+        <div class="code-container">
+          <div class="code-header">
+            <div class="code-header-left">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+              <div class="code-filename" id="codeFilename"></div>
+            </div>
+          </div>
+          <pre class="code-body"><code id="codeBlock" contenteditable="true"></code></pre>
+        </div>
+
+        <div class="run-panel">
+          <div class="run-header">
+            <div class="run-title">Run this C program</div>
+          </div>
+          <div class="section-subtitle" style="margin-bottom:6px;">
+            Edit the code on the left, click “Send to editor”, then press Run in the embedded compiler.
+          </div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(148,163,184,0.4);">
+            <iframe
+              id="oc-editor"
+              frameborder="0"
+              height="420"
+              width="100%"
+              src="https://onecompiler.com/embed/c?theme=dark&listenToEvents=true"
+            ></iframe>
+          </div>
+          <div class="section-subtitle" style="margin-top:8px;font-size:12px;">
+            For multi‑file projects (.c + .h), paste all relevant source files into the editor or run them locally with GCC.
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
+  </div>
+</main>
+
 
   <script src="script.js"></script>
-  <script>
-    const repoOwner = "GrizX4051k";
-    const repoName = "C-Projects";
-    const branch = "main";
+<script>
+  const repoOwner = "GrizX4051k";
+  const repoName = "C-Projects";
+  const branch = "main";
+  let originalCode = "";
+  let currentPath = "";
+  let currentFolder = "";
 
-    function getQueryParam(key) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(key);
+  function getQueryParam(key) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(key);
+  }
+
+  function findProjectMeta(folder) {
+    return (window.projects || []).find(p => p.folder === folder);
+  }
+
+  async function loadFolder() {
+    const folder = getQueryParam("folder");
+    if (!folder) return;
+    currentFolder = folder;
+
+    const meta = findProjectMeta(folder);
+    const titleEl = document.getElementById("projectTitle");
+    const subEl = document.getElementById("projectSubtitle");
+    const ghLink = document.getElementById("githubLink");
+
+    if (meta) {
+      titleEl.textContent = meta.name;
+      subEl.textContent = meta.focus;
+    } else {
+      titleEl.textContent = folder;
+      subEl.textContent = "Folder in C-Projects repository.";
     }
 
-    function findProjectMeta(folder) {
-      return (window.projects || []).find(p => p.folder === folder);
-    }
+    ghLink.href = `https://github.com/${repoOwner}/${repoName}/tree/${branch}/${folder}`;
 
-    async function loadFolder() {
-      const folder = getQueryParam("folder");
-      if (!folder) return;
+    const filesListEl = document.getElementById("filesList");
+    filesListEl.textContent = "Loading files...";
 
-      const meta = findProjectMeta(folder);
-      const titleEl = document.getElementById("projectTitle");
-      const subEl = document.getElementById("projectSubtitle");
-      const ghLink = document.getElementById("githubLink");
+    try {
+      const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}?ref=${branch}`;
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error("GitHub API error");
+      const data = await res.json();
 
-      if (meta) {
-        titleEl.textContent = meta.name;
-        subEl.textContent = meta.focus;
-      } else {
-        titleEl.textContent = folder;
-        subEl.textContent = "Folder in C-Projects repository.";
+      if (!Array.isArray(data)) {
+        filesListEl.textContent = "No files found in this folder.";
+        return;
       }
 
-      ghLink.href = `https://github.com/${repoOwner}/${repoName}/tree/${branch}/${folder}`;
-
-      const filesListEl = document.getElementById("filesList");
-      filesListEl.textContent = "Loading files...";
-
-      try {
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}?ref=${branch}`;
-        const res = await fetch(apiUrl);
-        if (!res.ok) {
-          throw new Error("GitHub API error");
-        }
-        const data = await res.json();
-
-        if (!Array.isArray(data)) {
-          filesListEl.textContent = "No files found in this folder.";
-          return;
-        }
-
-        const list = document.createElement("div");
-        data.forEach(item => {
-          const row = document.createElement("div");
-          row.style.padding = "6px 0";
-          row.style.display = "flex";
-          row.style.justifyContent = "space-between";
-          row.style.alignItems = "center";
-
-          const name = document.createElement("a");
-          name.textContent = item.name;
-          name.href = `file.html?folder=${encodeURIComponent(folder)}&path=${encodeURIComponent(item.path)}`;
-          name.style.color = "#e5e7eb";
-          name.style.textDecoration = "none";
-
-          const type = document.createElement("span");
-          type.style.fontSize = "11px";
-          type.style.color = "var(--muted)";
-          type.textContent = item.type === "dir" ? "folder" : "file";
-
-          row.appendChild(name);
-          row.appendChild(type);
-          list.appendChild(row);
+      const list = document.createElement("div");
+      data.forEach((item, index) => {
+        const row = document.createElement("button");
+        row.type = "button";
+        row.className = "tab-file-row";
+        row.dataset.path = item.path;
+        row.textContent = item.name;
+        row.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-file-row")
+            .forEach(b => b.classList.remove("active"));
+          row.classList.add("active");
+          loadFileContent(item.path);
         });
+        list.appendChild(row);
 
-        filesListEl.innerHTML = "";
-        filesListEl.appendChild(list);
-      } catch (e) {
-        filesListEl.textContent = "Failed to load files.";
+        // Auto‑load first file
+        if (index === 0) {
+          row.classList.add("active");
+          loadFileContent(item.path);
+        }
+      });
+
+      filesListEl.innerHTML = "";
+      filesListEl.appendChild(list);
+    } catch (e) {
+      filesListEl.textContent = "Failed to load files.";
+    }
+  }
+
+  async function loadFileContent(path) {
+    currentPath = path;
+    const filename = path.split("/").pop();
+    document.getElementById("fileViewTitle").textContent = filename;
+    document.getElementById("fileViewMeta").textContent = path;
+    document.getElementById("codeFilename").textContent = filename;
+
+    try {
+      const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}?ref=${branch}`;
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error("GitHub API error");
+      const data = await res.json();
+
+      if (data.encoding === "base64" && data.content) {
+        const decoded = atob(data.content.replace(/\n/g, ""));
+        originalCode = decoded;
+        document.getElementById("codeBlock").textContent = decoded;
+      } else {
+        document.getElementById("codeBlock").textContent =
+          "Unable to load file contents.";
       }
+    } catch (e) {
+      document.getElementById("codeBlock").textContent =
+        "Failed to load file contents.";
+    }
+  }
+
+  function setupCopy() {
+    const btn = document.getElementById("copyBtn");
+    if (!btn) return;
+    btn.addEventListener("click", async () => {
+      const current = document.getElementById("codeBlock").innerText;
+      try {
+        await navigator.clipboard.writeText(current);
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = "Copy"), 1500);
+      } catch {
+        btn.textContent = "Failed";
+        setTimeout(() => (btn.textContent = "Copy"), 1500);
+      }
+    });
+  }
+
+  function setupReset() {
+    const btn = document.getElementById("resetBtn");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      document.getElementById("codeBlock").textContent = originalCode;
+    });
+  }
+
+  function setupIframeSend() {
+    const btn = document.getElementById("sendToIframe");
+    const iframe = document.getElementById("oc-editor");
+    if (!btn || !iframe) return;
+
+    btn.addEventListener("click", () => {
+      const code = document.getElementById("codeBlock").innerText;
+      iframe.contentWindow.postMessage(
+        {
+          eventType: "populateCode",
+          language: "c",
+          files: [
+            {
+              name: "main.c",
+              content: code,
+            },
+          ],
+        },
+        "*"
+      );
+    });
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("navToggle");
+    const close = document.getElementById("navClose");
+    const panel = document.getElementById("offcanvasNav");
+
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener("click", () => {
+      panel.classList.add("open");
+    });
+
+    if (close) {
+      close.addEventListener("click", () => {
+        panel.classList.remove("open");
+      });
     }
 
-    document.addEventListener("DOMContentLoaded", loadFolder);
-  </script>
+    panel.addEventListener("click", (e) => {
+      if (e.target === panel) {
+        panel.classList.remove("open");
+      }
+    });
+  });
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setupCopy();
+    setupReset();
+    setupIframeSend();
+    loadFolder();
+  });
+</script>
+
 </body>
 </html>
