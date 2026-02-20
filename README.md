@@ -1,5 +1,7 @@
 # C Projects
 
+Link to my webiste Go check it out - https://grizx4051k.github.io/C-Projects/
+
 A curated collection of my C programming projects – from “Hello, World” to full terminal games and data-structure implementations – organized as if this were a production codebase, not just a homework dump.
 
 <p align="center">
